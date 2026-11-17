@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Small Business Toolkit</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; }
+    body { margin: 0; background: #f4f6fb; color: #172033; }
+    main { max-width: 760px; margin: 48px auto; padding: 24px; }
+    .card { background: white; border: 1px solid #e3e8f2; border-radius: 16px; padding: 24px; box-shadow: 0 8px 28px #18284a0d; }
+    h1 { margin-top: 0; }
+    p { line-height: 1.6; color: #536078; }
+    label { display: block; margin: 14px 0 6px; font-weight: 600; }
+    input { width: 100%; box-sizing: border-box; padding: 12px; border: 1px solid #cbd3e1; border-radius: 9px; font: inherit; }
+    button { margin-top: 18px; padding: 12px 18px; border: 0; border-radius: 9px; background: #2457d6; color: white; font: inherit; font-weight: 700; cursor: pointer; }
+    #result { margin-top: 18px; padding: 14px; background: #eef4ff; border-radius: 9px; font-weight: 700; }
+    footer { margin-top: 20px; font-size: .9rem; color: #6a7488; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="card">
+      <h1>Small Business Toolkit</h1>
+      <p>A simple starter tool for online sellers. Estimate the amount left from one order after product and advertising costs.</p>
+      <label for="price">Selling price (BDT)</label>
+      <input id="price" type="number" min="0" step="0.01" value="990">
+      <label for="cost">Product cost (BDT)</label>
+      <input id="cost" type="number" min="0" step="0.01" value="350">
+      <label for="ads">Advertising cost per order (BDT)</label>
+      <input id="ads" type="number" min="0" step="0.01" value="150">
+      <button id="calculate" type="button">Calculate estimated balance</button>
+      <div id="result" role="status" aria-live="polite">Estimated balance: ৳490.00</div>
+      <footer>Starter project • Runs locally in your browser • No data is sent anywhere</footer>
+    </section>
+  </main>
+  <script>
+    const money = value => new Intl.NumberFormat('en-BD', {
+      style: 'currency', currency: 'BDT', maximumFractionDigits: 2
+    }).format(value);
+    document.getElementById('calculate').addEventListener('click', () => {
+      const price = Number(document.getElementById('price').value) || 0;
+      const cost = Number(document.getElementById('cost').value) || 0;
+      const ads = Number(document.getElementById('ads').value) || 0;
+      document.getElementById('result').textContent =
+        `Estimated balance: ${money(price - cost - ads)}`;
+    });
+  </script>
+</body>
+</html>
